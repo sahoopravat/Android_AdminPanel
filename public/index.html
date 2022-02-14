@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+        td{
+
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        
+        
+        </style>
+
+
+
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+       
+        <script> src=  "https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"</script>
+
+        <script>  src= "https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js" </script>
+    
+       
+
+    
+     	<link rel="stylesheet"  href="assets/css/loading.css">
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="assets/css/styles.css">
+
+
+
+        <title>Sidebar menu responsive</title>
+    </head>
+    <body id="body-pd" onload="myFunction()" style="margin:0;">
+        <header class="header" id="header">
+            <div class="header__toggle">
+                <i class='bx bx-menu' id="header-toggle"></i>
+            </div>
+
+            <div class="header__img">
+                <img src="assets/img/perfil.jpg" alt="">
+            </div>
+        </header>
+
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div>
+                    <a href="#" class="nav__logo">
+                        <i class='bx bx-layer nav__logo-icon'></i>
+                        <span class="nav__logo-name">Report admin</span>
+                    </a>
+
+                    <div class="nav__list">
+                        <a href="index.html" class="nav__link active">
+                        <i class='bx bx-grid-alt nav__icon' ></i>
+                            <span class="nav__name">Report</span>
+                        </a>
+
+                        <a href="User.html" class="nav__link">
+                            <i class='bx bx-user nav__icon' ></i>
+                            <span class="nav__name">Users</span>
+                        </a>
+                        
+                    
+                    
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div id="loader"></div>
+    
+        <h1>accident Dashboard</h1>
+
+        <h1>accident details</h1>
+
+    
+
+        <table class="table table-striped" id="table" style="border: 1px solid black;" >
+            
+              <tr style="border: 1px solid black;">
+               
+                <th style="border: 1px solid black;"> accident_img</th>
+                <th style="border: 1px solid black;">accident_location</th>
+               
+                <th style="border: 1px solid black;">delete section</th>
+               <!--<th style="border: 1px solid black;">edit section</th>-->
+                </tr>
+
+            <tbody id = mytable>
+                <tr>
+                  
+                    <td id/="A_Img"></td>
+                    <td id="A_des"></td>
+                    <td id ="P_delete"> <!-- <Button id = "delete" onclick="deleteData()">Delete</Button>  --></td>
+                    <!--<td id ="P_edit"> <Button id = "edit" onclick="editdata()">Edit</Button> </td>-->
+                </tr>
+
+                
+            </tbody>
+        </table>
+       
+       
+        <!--===== MAIN JS =====-->
+        <script src="assets/js/main.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-firestore.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-analytics.js"></script>
+
+
+        <script>
+          const firebaseConfig = {
+            apiKey: "AIzaSyAupgxgq-Vht2N2sFJt8W4S-b_ll8dJwCY",
+            authDomain: "pravartapp.firebaseapp.com",
+            projectId: "pravartapp",
+            storageBucket: "pravartapp.appspot.com",
+            messagingSenderId: "776447973904",
+            appId: "1:776447973904:web:a268b8170c3b9b8c97c895",
+            measurementId: "G-KHTPS2909L"
+            };
+            // Initialize Firebase
+
+            firebase.initializeApp(firebaseConfig);
+
+            //const app = initializeApp(firebaseConfig);
+            
+
+          // Firebase  Analytics 
+            var db = firebase.firestore();
+
+            
+            const table_id = document.querySelector("#table");
+
+
+            function renderAccount(doc){
+
+        
+
+            let tr = document.createElement('tr');
+            let td_Pimg = document.createElement('td');
+            let td_Pdes = document.createElement('td'); 
+            let td_delete = document.createElement('td');
+            //let td_edit = document.createElement('td');
+            
+           
+            tr.setAttribute('data-id', doc.id);
+            
+            
+            
+    
+            
+             
+             td_Pdes.textContent = doc.data().location;
+             
+         
+            td_Pdes.addEventListener("click", function(){
+
+                    window.open(doc.data().location);
+            })
+
+            
+                
+         
+              /*   
+            td_Pdes = location;
+            location.value = 'location';
+            location.style.width = '200px'; // setting the width to 200px
+            location.style.height = '200px'; // setting the height to 200px
+            location.textContent = doc.data().location;
+            //location.style.title = "delete button ";
+            location.style.color = 'black'; // setting the color to white
+            
+            location.style.fontSize = '12px';   
+            location.addEventListener ("click", function(){
+                
+                document.getElementById("a").href = td_Pdes;
+
+            }) */
+
+            
+
+            let a = document.createElement('input');
+           
+            td_delete = a;
+            a.value='button'
+            a.type = 'submit'
+           
+            a.style.width = '100'; // setting the width to 200px
+            a.style.height = '100px'; // setting the height to 200px
+            a.style.background = '#f23030';
+            a.style.title = "delete button ";
+            
+            a.style.color = 'white'; // setting the color to white
+            a.style.fontSize = '20px';
+            a.addEventListener ("click", function() {
+            
+            var i =  doc.id;
+
+            deleteproduct(i);
+           });
+
+
+            
+
+
+            
+           td_Pimg.textContent = doc.data().image;
+
+            
+           
+            
+            let img =document.createElement('img');
+            img.src = doc.data().image;
+            img.height = 200;
+            img.width = 200;
+            img.alt = 'product_image'
+            
+
+             
+             tr.appendChild(td_Pimg.appendChild(img)); 
+             tr.appendChild(td_Pdes);
+             
+             tr.appendChild(td_delete);
+            
+             table_id.appendChild(tr);
+
+        }
+
+            db.collection("report").orderBy("timestamp","desc").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    console.log(doc.id, " => ", doc.data());
+
+                    
+                   let data = doc.data();
+            
+                
+                   renderAccount(doc)
+            
+            })
+           
+            })
+
+           
+                  
+        </script>
+
+
+    <script type="text/JavaScript">  
+        (function() {    
+            var dialog = document.getElementById('myFirstDialog');    
+            document.getElementById('show').onclick = function() {    
+                dialog.show();    
+            };    
+            document.getElementById('hide').onclick = function() {    
+                dialog.close();    
+            };
+        })();   
+    </script>
+
+
+
+       <script>
+        var myVar;
+        
+        function myFunction() {
+        myVar = setTimeout(showPage, 1200);
+        }
+        
+        function showPage() {
+        document.getElementById("loader").style.display = "none";
+        
+        }
+
+
+
+
+        function deleteData(){
+
+            console.log("Hello world!");
+        }
+
+        function editdata(){
+
+            console.log("Hello world!!!");
+
+        }
+
+
+
+
+        function deleteproduct(i){
+
+            db.collection("report").doc(i).delete().then(function () {
+                 console.log("Document successfully deleted!");
+                 window.alert("Accident Deleted!");
+                 location.reload();
+                 return false;
+
+
+             }).catch(function (error) {
+                 console.error("Error removing document: ", error);
+             });
+             
+
+             
+
+        }
+
+
+        </script>
+
+
+    </body>
+</html>
